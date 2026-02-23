@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Kaczek",
-  "version": "0.1",
+  "version": "1.0",
   "description": "Wtyczka sprawdzająca rzetelność ogłoszeń na OLX.",
   "action": {
     "default_popup": "index.html",
@@ -9,9 +9,10 @@
   },
   "permissions": [
     "activeTab",
-    "scripting"
+    "scripting",
+    "tabs"
   ],
   "host_permissions": [
-    "https://*.olx.pl/*"
+    "<all_urls>"
   ]
 }
