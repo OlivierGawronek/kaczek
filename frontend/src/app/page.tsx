@@ -1,4 +1,20 @@
+/// <reference types="chrome" />
+"use client";
+
+import { useState } from "react";
+
 export default function Home() {
+  const [url, setUrl] = useState<string>("");
+
+  const handleCheckAd = () => {
+    if (typeof chrome !== "undefined" && chrome.tabs) {
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs: chrome.tabs.Tab[]) => {
+        const currentUrl = tabs[0]?.url || "";
+        setUrl(currentUrl);
+      });
+    }
+  };
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-4 text-gray-900">
       <h1 className="text-2xl font-bold mb-1">Kaczek</h1>
@@ -9,11 +25,14 @@ export default function Home() {
           🦆
         </div>
         
-        <p className="text-sm text-gray-600 font-medium mb-5 text-center">
-          Waiting for an ad page...
+        <p className="text-sm text-gray-600 font-medium mb-5 text-center break-all">
+          {url ? url : "Waiting for an ad page..."}
         </p>
         
-        <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors">
+        <button 
+          onClick={handleCheckAd}
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+        >
           Check this ad
         </button>
       </div>
